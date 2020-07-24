@@ -13,11 +13,17 @@ open class StaticFolder: Middleware {
 	) {
 		super.init()
 		let cachier = Cachier()
-
-		plugin(ErrorDecorator(format: .text), when: .after)
-		plugin(cachier, when: .after)
-		plugin(cachier, when: .before)
-
+        plugins = [
+            .before: [
+                HTTPHeadersReader([.ommitable("Cache-Control")]),
+                cachier,
+            ],
+            .after: [
+                ErrorDecorator(format: .text),
+                cachier,
+                Responder(),
+            ],
+        ]
 		handler = { (worker: WebWorker) in
 			let folder = try Folder.root.createSubfolderIfNeeded(at: staticFolderPath)
 			let requestedPath: String = try worker.environ.read(key: .path)

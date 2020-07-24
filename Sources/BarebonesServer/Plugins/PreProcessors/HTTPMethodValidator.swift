@@ -1,7 +1,9 @@
 
-public struct HTTPMethodValidator: Plugin {
+public class HTTPMethodValidator: Plugin {
 
-	public let method: HTTPMethod
+    public var method: HTTPMethod = .get
+
+    public init() {}
 
 	public var work: WebWork {
 		{

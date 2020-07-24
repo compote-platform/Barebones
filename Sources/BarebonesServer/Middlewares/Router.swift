@@ -24,8 +24,12 @@ open class Router: Middleware {
 				{ $0.stage = .process; return .value(()) }
 			].process(worker)
 		}
-
-		plugin(ErrorDecorator(), when: .after)
+        plugins = [
+            .after: [
+                ErrorDecorator(),
+                Responder(),
+            ],
+        ]
 	}
 
 	open func route(to path: String, on worker: WebWorker) -> Middleware? {

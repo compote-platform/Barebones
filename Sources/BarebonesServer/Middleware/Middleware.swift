@@ -6,12 +6,21 @@ import PromiseKit
 
 open class Middleware {
 
-	public private(set) var timeout: TimeInterval = 15
-	public private(set) var plugins = [PluginRuntimePosition: [Plugin]]()
-	public internal(set) var handler: WebWork
+	public var timeout: TimeInterval = 15
+	public var plugins = [PluginRuntimePosition: [Plugin]]()
+	public var handler: WebWork
 
-	public init(handler: @escaping WebWork = { _ in return .value(()) }) {
+    public init(
+        handler: @escaping WebWork = { _ in return .value(()) },
+        plugins: [PluginRuntimePosition: [Plugin]] = [
+            .after: [
+                Responder(),
+            ],
+        ]
+    ) {
 		self.handler = handler
+        plugins[.before]?.forEach { self.plugin($0, when: .before) }
+        plugins[.after]?.forEach { self.plugin($0, when: .after) }
 	}
 
 	@discardableResult
@@ -125,73 +134,12 @@ open class Middleware {
 			return race(when(resolved: [promise]).asVoid(), timeout)
 		}
 	}
-
-	open func response(
-		startResponse: @escaping ((String, [(String, String)]) -> Void),
-		sendBody: @escaping ((Data) -> Void)
-	) -> WebWork {
-		{ (worker: WebWorker) in
-			let respondWithData = [
-				{ [unowned worker] _ in
-					worker.journal.log(.todo("📤 sending response " + "(\(worker.contentType))"))
-					return .value(())
-				},
-				{ [unowned worker] _ in
-					let promise = Promise<Void>.pending()
-					let loop: EventLoop = try worker.environ.read(key: .eventLoop)
-
-					let code = worker.statusCode
-					let contentType = worker.contentType.rawValue
-					let data = worker.data
-					let environ = worker.environ
-
-					loop.call {
-						DataResponse(
-							statusCode: code,
-							contentType: contentType
-						) { _, sendData in
-							sendData(data)
-							promise.resolver.fulfill(())
-						}.app(environ, startResponse: startResponse, sendBody: sendBody)
-					}
-					return promise.promise
-				},
-				{ [unowned worker] _ in
-					worker.journal.log(.done("📤 sending response " + "(\(worker.contentType))"))
-					return .value(())
-				},
-				log(.event("💌 done sending response"))
-			].process
-			let prepareJSON = [
-				log(.todo("💭 preparing response data")),
-				{ [unowned worker] _ in
-					let options: JSONSerialization.WritingOptions
-					#if DEBUG
-					options = .prettyPrinted
-					#else
-					options = []
-					#endif
-
-					worker.data = try JSONSerialization.data(withJSONObject: worker.body, options: options)
-					return .value(())
-				},
-				log(.done("💭 preparing response data")),
-				log(.event("🗯 done preparing response data")),
-			].process
-
-			if worker.contentType == .json {
-				return try [prepareJSON, respondWithData].process(worker)
-			} else {
-				return try respondWithData(worker)
-			}
-		}
-	}
 }
 
 extension Middleware: PluginExtendable {
 
 	@discardableResult
-	open func plugin(_ plugin: Plugin, when stage: PluginRuntimePosition = .before) -> Self {
+	public func plugin(_ plugin: Plugin, when stage: PluginRuntimePosition = .before) -> Self {
 		var pluginsByStage = plugins[stage] ?? []
 		pluginsByStage.append(plugin)
 		plugins[stage] = pluginsByStage
@@ -206,11 +154,15 @@ extension Middleware: WebApp {
 		startResponse: @escaping ((String, [(String, String)]) -> Void),
 		sendBody: @escaping ((Data) -> Void)
 	) {
-		let todo = [work, response(startResponse: startResponse, sendBody: sendBody)].process
+        plugins[.after]?.compactMap { $0 as? Responder }.forEach {
+            $0.startResponse = startResponse
+            $0.sendBody = sendBody
+        }
+
 		let worker: WebWorker! = WebWorker(
 			journal: Journal(),
 			environ: environ,
-			work: todo
+			work: work
 		)
 
 		worker.execute().ensure {

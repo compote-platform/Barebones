@@ -3,25 +3,49 @@ import PromiseKit
 
 public struct HTTPHeadersReader: Plugin {
 
-	public let headers: [String]
+    public enum Header: RawRepresentable {
 
-	public init(_ expectedHeaders: [String]) {
+        /// the ones which are required for processing - will throw
+        case mandatory(String)
+        /// the ones which are ommitable by processing - won't ever throw
+        case ommitable(String)
+
+        public init(rawValue: String) {
+            self = .ommitable(rawValue)
+        }
+
+        public var rawValue: String {
+            switch self {
+                case .mandatory(let header): return header
+                case .ommitable(let header): return header
+            }
+        }
+    }
+
+	public let headers: [Header]
+
+	public init(_ expectedHeaders: [Header]) {
 		headers = expectedHeaders
 	}
 
 	public var work: WebWork {
 		{ (worker: WebWorker) in
-			worker.journal.log(.todo("📖 reading headers [\(self.headers.joined(separator: ", "))]"))
+            worker.journal.log(.todo("📖 reading headers [\(self.headers.map(\.rawValue).joined(separator: ", "))]"))
 
-			let justReadHeaders: [(String, String)] = try self.headers.map { key in
-				let swsgiHeaderKey = "HTTP_" + key
+			let justReadHeaders: [(String, String)] = try self.headers.compactMap { header in
+                let swsgiHeaderKey = "HTTP_" + header.rawValue
 					.uppercased()
 					.replacingOccurrences(of: "-", with: "_")
-				
-				guard let header = worker.environ[swsgiHeaderKey] as? String else {
-					throw APIError.missing(header: key)
-				}
-				return (key, header)
+
+                if let value = worker.environ[swsgiHeaderKey] as? String {
+                    return (header.rawValue, value)
+                } else {
+                    if case .mandatory = header {
+                        throw APIError.missing(header: header.rawValue)
+                    }
+
+                    return .none
+                }
 			}
 
 			let headers = Head(uniqueKeysWithValues: justReadHeaders)
@@ -38,7 +62,7 @@ public struct HTTPHeadersReader: Plugin {
 				)
 			}
 
-			worker.journal.log(.done("📖 reading headers [\(self.headers.joined(separator: ", "))]"))
+            worker.journal.log(.done("📖 reading headers [\(self.headers.map(\.rawValue).joined(separator: ", "))]"))
 
 			return .value(())
 		}

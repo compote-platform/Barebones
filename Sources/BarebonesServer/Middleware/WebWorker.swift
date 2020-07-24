@@ -19,18 +19,14 @@ open class WebWorker {
 		case failed
 	}
 
-	public var redirect: String? = nil
+//	public var redirect: String? = nil
 	public var stage: Stage = .pending
 	
 	public var statusCode: Int = 200
 	public var contentType: ContentType = .none
 
 	public var data = Data()
-	public var body: Body = [:] {
-		didSet {
-			contentType = .json
-		}
-	}
+	public var body: Body = [:] { didSet { contentType = .json } }
 
 	public var environ: Environ
 	public var error: [Stage: Error] = [:]

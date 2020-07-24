@@ -3,7 +3,10 @@ public typealias Memory = Int64
 
 public extension Memory {
 
+    static func bytes(_ size: Memory) -> Memory { size }
+    static func kb(_ size: Memory) -> Memory { size * 1024 }
     static func mb(_ size: Memory) -> Memory { size * 1024 * 1024 }
+    static func gb(_ size: Memory) -> Memory { size * 1000 * 1024 * 1024 }
 }
 
 extension Memory {

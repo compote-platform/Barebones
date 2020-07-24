@@ -8,14 +8,14 @@ open class Internals: Router {
     public init(journal journalFile: File) {
 		super.init()
 		
-        route("journal", Request { worker in
+        route("journal", Request { worker -> Promise<Body> in
             let journal = try Journal.from(file: journalFile, length: 160)
             let output = journal.log.reversed().map {
                 $0.marker.rawValue + " " + "\($0.occuredAt)" + " " + $0.text
             }
             return .value(["response": output])
         })
-        route("stats", Request { worker in
+        route("stats", Request { worker -> Promise<Body> in
             let file = journalFile
             let journal = try Journal.from(file: file)
 

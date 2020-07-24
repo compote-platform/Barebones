@@ -3,7 +3,7 @@ import PromiseKit
 
 public protocol Credentials: Materializable {
 
-	static var headers: [String] { get }
+    static var headers: [HTTPHeadersReader.Header] { get }
 
 	static func generate(from headers: Head) throws -> Promise<Self>
 }

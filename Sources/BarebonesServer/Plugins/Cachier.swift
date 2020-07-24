@@ -17,7 +17,7 @@ public final class Cache: MemoryAware {
 		}
 	}
 
-	public static var shared: Cache = Cache(size: .mb(100))
+    public static var shared: Cache = Cache(size: .mb(100))
 
 	public let allowedSize: Memory
 	private var cache = [String: Cached]()
@@ -91,6 +91,17 @@ public final class Cachier: Plugin {
 			let key: String = try worker.environ.read(key: .path)
 
 			if case .preprocess = worker.stage, let cached = self.cache.read(key: key) {
+                guard let headers: Head = try worker.environ.read(key: .parsedHeaders) else {
+                    throw APIError.badRequest
+                }
+
+                if
+                    let cacheControl = headers["Cache-Control"],
+                    cacheControl == "no-cache"
+                {
+                    return .value(())
+                }
+
 				worker.data = cached.data
 				worker.contentType = cached.contentType
 				worker.journal
