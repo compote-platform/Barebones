@@ -4,13 +4,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "BarebonesServer",
+    name: "barebones",
     platforms: [
         .macOS("10.15"),
         .iOS("13.6"),
     ],
     products: [
-        .library(name: "BarebonesServer", targets: ["BarebonesServer"]),
+        .library(name: "Barebones", targets: ["Barebones"]),
     ],
     dependencies: [
         .package(url: "https://github.com/alexaubry/HTMLString", .upToNextMajor(from: "4.0.2")),
@@ -20,7 +20,7 @@ let package = Package(
         .package(url: "https://github.com/envoy/Ambassador", .upToNextMajor(from: "4.0.5")),
     ],
     targets: [
-        .target(name: "BarebonesServer", dependencies: [
+        .target(name: "Barebones", dependencies: [
             "HTMLString",
             "Files",
             "PromiseKit",
