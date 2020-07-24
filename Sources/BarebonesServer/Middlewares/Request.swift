@@ -68,12 +68,12 @@ open class Request: Middleware {
 			let input = try GenericInput.materialize(from: worker.environ)
 			return try handler(worker, input)
         }, plugins: plugins)
-		
+        
         expectsJSONBody().plugin(Materializer<GenericInput>())
 	}
 
 	@discardableResult
-    public func expects(headers: [HTTPHeadersReader.Header]) -> Self {
+    public func expects(headers: [Header]) -> Self {
 		plugin(HTTPHeadersReader(headers))
 	}
 
