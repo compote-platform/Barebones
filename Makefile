@@ -6,4 +6,4 @@ xcode:
 		swift package generate-xcodeproj
 
 edit:
-		open -a Xcode Swarm.xcodeproj
+		open -a Xcode *.xcodeproj
