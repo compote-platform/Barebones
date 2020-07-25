@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "barebones",
+    name: "Barebones",
     platforms: [
         .macOS("10.15"),
         .iOS("13.6"),
