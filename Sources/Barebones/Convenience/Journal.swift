@@ -203,6 +203,13 @@ extension Journal {
         return journal
     }
 
+    public func dump(to function: (String) -> Void) {
+        guard !log.isEmpty else { return }
+
+        function(log.rawValue)
+        log = []
+    }
+
     public func dump(to file: File) throws {
         guard !log.isEmpty else { return }
 
