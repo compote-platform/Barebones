@@ -91,11 +91,8 @@ public final class Cachier: Plugin {
 			let key: String = try worker.environ.read(key: .path)
 
 			if case .preprocess = worker.stage, let cached = self.cache.read(key: key) {
-                guard let headers: Head = try worker.environ.read(key: .parsedHeaders) else {
-                    throw APIError.badRequest
-                }
-
                 if
+                    let headers: Head = try? worker.environ.read(key: .parsedHeaders),
                     let cacheControl = headers["Http-Cache-Control"],
                     cacheControl == "no-cache"
                 {
@@ -112,11 +109,8 @@ public final class Cachier: Plugin {
 			}
 			
 			if case .postprocess = worker.stage, !worker.data.isEmpty, !self.cache.has(key: key) {
-                guard let headers: Head = try worker.environ.read(key: .parsedHeaders) else {
-                    throw APIError.badRequest
-                }
-
                 if
+                    let headers: Head = try? worker.environ.read(key: .parsedHeaders),
                     let cacheControl = headers["Http-Cache-Control"],
                     cacheControl == "no-cache"
                 {
