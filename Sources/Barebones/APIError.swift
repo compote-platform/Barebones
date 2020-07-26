@@ -52,8 +52,8 @@ public enum APIError: Swift.Error, CustomStringConvertible {
 	public static var badRequest: APIError {
 		.specific(reason: "Bad request (ง •̀_•́)ง", code: 400)
 	}
-	public static var wrongMethod: APIError {
-		.specific(reason: "Wrong method while calling endpoint (●__●)", code: 400)
+    public static func wrongMethod(expected: HTTPMethod, received: String) -> APIError {
+        .specific(reason: "Wrong method while calling endpoint. Expected: \(expected.rawValue)/Received: \(received) (●__●)", code: 400)
 	}
 	public static func missing(header: String) -> APIError {
 		.specific(reason: "Expected HTTP header: \(header)", code: 400)
