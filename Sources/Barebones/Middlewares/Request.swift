@@ -17,16 +17,15 @@ open class Request: Middleware {
             ],
         ]
     ) {
-        super.init { (worker: WebWorker) -> Promise<Void> in
-            try handler(worker)
-        }
         plugins[.before]?.forEach {
             if let httpMethodValidator = $0 as? HTTPMethodValidator {
                 httpMethodValidator.method = method
             }
-            self.plugin($0, when: .before)
         }
-        plugins[.after]?.forEach { self.plugin($0, when: .after) }
+
+        super.init(handler: { (worker: WebWorker) -> Promise<Void> in
+            try handler(worker)
+        }, plugins: plugins)
     }
 
 	public convenience init(

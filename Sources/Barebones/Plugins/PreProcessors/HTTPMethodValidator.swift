@@ -1,5 +1,5 @@
 
-public class HTTPMethodValidator: Plugin {
+public final class HTTPMethodValidator: Plugin {
 
     public var method: HTTPMethod = .get
 
