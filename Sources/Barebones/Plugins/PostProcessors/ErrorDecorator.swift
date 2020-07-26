@@ -11,7 +11,7 @@ open class ErrorDecorator: Plugin {
 
 	public let format: Format
 
-	public init(format: Format = .json) {
+	public init(format: Format = .text) {
 		self.format = format
 	}
 
@@ -34,7 +34,6 @@ open class ErrorDecorator: Plugin {
 			if case .json = self.format {
 				worker.contentType = .json
 				worker.body = apiError.json
-				worker.statusCode = 200
 			} else {
 				worker.contentType = .txt
 				worker.statusCode = apiError.code
