@@ -33,7 +33,7 @@ import Foundation
 
 internal var memoryAwarebyteCountFormatter: ByteCountFormatter = {
     let formatter = ByteCountFormatter()
-    formatter.allowedUnits = [.useBytes, .useKB, .useMB]
+    formatter.allowedUnits = [.useBytes, .useKB, .useMB, .useGB, .useTB]
     formatter.countStyle = .memory
     return formatter
 }()
@@ -64,3 +64,19 @@ extension Optional: MemoryAware where Wrapped: MemoryAware {
     }
 }
 
+import Files
+
+public extension Memory {
+
+    static func totalRAM() -> Memory {
+        Int64(ProcessInfo.processInfo.physicalMemory)
+    }
+    static func freeDiskSpace() -> Memory {
+        guard
+            let folder = try? Folder.home.subfolder(named: "Documents"),
+            let attributes = try? FileManager.default.attributesOfFileSystem(forPath: folder.path),
+            let freeSize = attributes[.systemFreeSize] as? NSNumber
+            else { return 0 }
+        return freeSize.int64Value
+    }
+}
