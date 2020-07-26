@@ -96,7 +96,7 @@ public final class Cachier: Plugin {
                 }
 
                 if
-                    let cacheControl = headers["Cache-Control"],
+                    let cacheControl = headers["Http-Cache-Control"],
                     cacheControl == "no-cache"
                 {
                     return .value(())

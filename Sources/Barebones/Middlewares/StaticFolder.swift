@@ -15,7 +15,7 @@ open class StaticFolder: Middleware {
 		let cachier = Cachier()
         plugins = [
             .before: [
-                HTTPHeadersReader([.ommitable("Cache-Control")]),
+                HTTPHeadersReader([.ommitable("Http-Cache-Control")]),
                 cachier,
             ],
             .after: [
