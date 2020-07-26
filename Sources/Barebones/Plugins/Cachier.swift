@@ -112,6 +112,17 @@ public final class Cachier: Plugin {
 			}
 			
 			if case .postprocess = worker.stage, !worker.data.isEmpty, !self.cache.has(key: key) {
+                guard let headers: Head = try worker.environ.read(key: .parsedHeaders) else {
+                    throw APIError.badRequest
+                }
+
+                if
+                    let cacheControl = headers["Http-Cache-Control"],
+                    cacheControl == "no-cache"
+                {
+                    return .value(())
+                }
+
 				guard !self.cache.isFilled else {
 					worker.journal.log(.note("📦 filled cache, size: "
 						+ self.cache.memoryDescription + " / "

@@ -37,7 +37,7 @@ open class Middleware {
 		return { (worker: WebWorker) in
 			guard case .preprocess = worker.stage else {
 				worker.journal
-					.log(.event("📦 pre processing with plugins" + "skipped"))
+					.log(.event("📦 pre processing with plugins skipped"))
 				return .value(())
 			}
 			return try [
@@ -53,7 +53,7 @@ open class Middleware {
 		{ (worker: WebWorker) in
 			guard case .process = worker.stage else {
 				worker.journal
-					.log(.event("⚙️ processing" + "skipped"))
+					.log(.event("⚙️ processing skipped"))
 				return .value(())
 			}
 			return try [
@@ -73,7 +73,7 @@ open class Middleware {
 		return { (worker: WebWorker) in
 			guard case .postprocess = worker.stage else {
 				worker.journal
-					.log(.event("🔧 post processing with plugins" + "skipped"))
+					.log(.event("🔧 post processing with plugins skipped"))
 				return .value(())
 			}
 			return try [
