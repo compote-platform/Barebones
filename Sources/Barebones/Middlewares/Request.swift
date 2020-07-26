@@ -4,7 +4,6 @@ import Foundation
 
 open class Request: Middleware {
 
-
     public init(
         method: HTTPMethod = .get,
         timeout: TimeInterval = 15,

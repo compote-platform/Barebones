@@ -6,12 +6,12 @@ import Ambassador
 
 public final class Responder: Plugin {
 
-    typealias StartResponse = (String, [(String, String)]) -> Void
-    typealias SendBody = (Data) -> Void
+    public typealias StartResponse = (String, [(String, String)]) -> Void
+    public typealias SendBody = (Data) -> Void
 
-    internal var startResponse: StartResponse!
-    internal var sendBody: SendBody!
-    internal var shouldRespond: Bool = true
+    public var startResponse: StartResponse!
+    public var sendBody: SendBody!
+    public var shouldRespond: Bool = true
 
     public init() {}
 
