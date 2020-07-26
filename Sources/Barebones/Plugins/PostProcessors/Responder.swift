@@ -30,6 +30,13 @@ public final class Responder: Plugin {
                     let data = worker.data
                     let environ = worker.environ
 
+                    guard
+                        let startResponse = self.startResponse,
+                        let sendBody = self.sendBody
+                        else {
+                            return .value(())
+                        }
+
                     loop.call {
                         DataResponse(
                             statusCode: code,
@@ -37,7 +44,7 @@ public final class Responder: Plugin {
                         ) { _, sendData in
                             sendData(data)
                             promise.resolver.fulfill(())
-                        }.app(environ, startResponse: self.startResponse, sendBody: self.sendBody)
+                        }.app(environ, startResponse: startResponse, sendBody: sendBody)
                     }
                     return promise.promise
                 },
