@@ -11,6 +11,7 @@ public final class Responder: Plugin {
 
     internal var startResponse: StartResponse!
     internal var sendBody: SendBody!
+    internal var shouldRespond: Bool = true
 
     public init() {}
 
@@ -31,6 +32,7 @@ public final class Responder: Plugin {
                     let environ = worker.environ
 
                     guard
+                        self.shouldRespond,
                         let startResponse = self.startResponse,
                         let sendBody = self.sendBody
                         else {

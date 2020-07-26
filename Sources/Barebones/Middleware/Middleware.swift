@@ -19,8 +19,7 @@ open class Middleware {
         ]
     ) {
 		self.handler = handler
-        plugins[.before]?.forEach { self.plugin($0, when: .before) }
-        plugins[.after]?.forEach { self.plugin($0, when: .after) }
+        self.plugins = plugins
 	}
 
 	@discardableResult
