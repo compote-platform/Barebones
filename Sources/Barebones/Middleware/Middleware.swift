@@ -6,11 +6,12 @@ import PromiseKit
 
 open class Middleware {
 
-	public var timeout: TimeInterval = 15
-	public var plugins = [PluginRuntimePosition: [Plugin]]()
+	public var timeout: TimeInterval
+    public var plugins: [PluginRuntimePosition: [Plugin]]
 	public var handler: WebWork
 
     public init(
+        timeout: TimeInterval = 15,
         handler: @escaping WebWork = { _ in return .value(()) },
         plugins: [PluginRuntimePosition: [Plugin]] = [
             .after: [
@@ -18,6 +19,7 @@ open class Middleware {
             ],
         ]
     ) {
+        self.timeout = timeout
 		self.handler = handler
         self.plugins = plugins
 	}
@@ -171,4 +173,22 @@ extension Middleware: WebApp {
 
 		}.cauterize()
 	}
+}
+
+extension Middleware {
+
+    @discardableResult
+    public func expects(headers: [Header]) -> Self {
+        plugin(HTTPHeadersReader(headers))
+    }
+
+    @discardableResult
+    public func expectsJSONBody() -> Self {
+        expectsBody().plugin(JSONBodyParser())
+    }
+
+    @discardableResult
+    public func expectsBody() -> Self {
+        plugin(RawBodyReader(timeout: timeout))
+    }
 }

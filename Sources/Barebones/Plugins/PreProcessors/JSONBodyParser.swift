@@ -3,12 +3,6 @@ import Foundation
 
 public struct JSONBodyParser: Plugin {
 
-	public var timeout: TimeInterval
-
-	public init(timeout: TimeInterval) {
-		self.timeout = timeout
-	}
-
 	public var work: WebWork {
 		{ (worker: WebWorker) in
 			let raw: Data = try worker.environ.read(key: .rawBody)
