@@ -36,7 +36,8 @@ public final class Responder: Plugin {
                         let startResponse = self.startResponse,
                         let sendBody = self.sendBody
                         else {
-                            return .value(())
+                            promise.resolver.fulfill(())
+                            return promise.promise
                         }
 
                     loop.call {

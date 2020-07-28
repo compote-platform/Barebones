@@ -170,7 +170,6 @@ extension Middleware: WebApp {
 			if let connection: HTTPConnection = try? worker.environ.read(key: .httpConnection) {
 				connection.close()
 			}
-
 		}.cauterize()
 	}
 }
