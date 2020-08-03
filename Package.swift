@@ -7,7 +7,7 @@ let package = Package(
     name: "Barebones",
     platforms: [
         .macOS("10.15"),
-        .iOS("13.6"),
+        .iOS("13.0"),
     ],
     products: [
         .library(name: "Barebones", targets: ["Barebones"]),
