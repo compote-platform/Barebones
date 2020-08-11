@@ -191,3 +191,12 @@ extension Middleware {
         plugin(RawBodyReader(timeout: timeout))
     }
 }
+
+extension Middleware {
+
+    public static func router(_ configuration: (Router) -> Void) -> Router {
+        let router = Router()
+        configuration(router)
+        return router
+    }
+}
