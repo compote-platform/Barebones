@@ -5,8 +5,8 @@ import PromiseKit
 
 open class Router: Middleware {
 
-	private var routes = [String: Middleware]()
-	private let semaphore = DispatchSemaphore(value: 1)
+	public private(set) var routes = [String: Middleware]()
+	public let semaphore = DispatchSemaphore(value: 1)
 
 	public init() {
 		super.init()
