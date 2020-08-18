@@ -1,9 +1,12 @@
 
 clean:
-		rm -rf .build
+	rm -rf .build
 
 xcode:
-		swift package generate-xcodeproj
+	swift package generate-xcodeproj
 
 edit:
-		open -a Xcode *.xcodeproj
+	open -a Xcode *.xcodeproj
+
+tags:
+	git push origin master --tags

@@ -73,4 +73,29 @@ open class Request: Middleware {
         expectsJSONBody()
         plugin(Materializer<GenericInput>())
 	}
+
+    public convenience init<GenericInput: Materializable>(
+        method: HTTPMethod = .get,
+        timeout: TimeInterval = 15,
+        handler: @escaping (WebWorker, GenericInput) throws -> Promise<Body>,
+        plugins: [PluginRuntimePosition: [Plugin]] = [
+        .after: [
+            JSONBodyDecorator(),
+            ErrorDecorator(),
+            Responder(),
+        ],
+        ]
+    ) {
+        self.init(
+            method: method,
+            timeout: timeout,
+            handler: { (worker: WebWorker) throws -> Promise<Body> in
+                let input = try GenericInput.materialize(from: worker.environ)
+                return try handler(worker, input)
+        },
+            plugins: plugins
+        )
+
+        plugin(Materializer<GenericInput>())
+    }
 }
