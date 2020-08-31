@@ -9,10 +9,10 @@ public struct HTTPMethodValidator: Plugin {
 
 	public var work: WebWork {
 		{
-			let method: String = try $0.environ.read(key: .method)
-            guard method == self.method.rawValue else {
-                throw APIError.wrongMethod(expected: self.method, received: method)
-            }
+//			let method: String = try $0.environ.read(key: .method)
+//            guard method == self.method.rawValue else {
+//                throw APIError.wrongMethod(expected: self.method, received: method)
+//            }
 			return .value(())
 		}
 	}
