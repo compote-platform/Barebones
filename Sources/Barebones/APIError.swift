@@ -27,11 +27,11 @@ public enum APIError: Swift.Error, CustomStringConvertible {
 	}
 
 	public static func underlyingError(_ error: Error) -> APIError {
-		#if DEBUG
+//		#if DEBUG
 		return .specific(reason: "Internal error (ﾉ◕ヮ◕)ﾉ*:・ﾟ \(error)", code: 500)
-		#else
-		return .specific(reason: "Internal error (ﾉ◕ヮ◕)ﾉ*:・ﾟ", code: 500)
-		#endif
+//		#else
+//		return .specific(reason: "Internal error (ﾉ◕ヮ◕)ﾉ*:・ﾟ", code: 500)
+//		#endif
 	}
 
 	public static var internalError: APIError {
