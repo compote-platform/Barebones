@@ -31,8 +31,13 @@ open class ErrorDecorator: Plugin {
 
 			let apiError = APIError.wrapping(error: error)
 
-			if case .json = self.format {
+            if let contentType = worker.environ.header(.ommitable("Content-Type"), map: String.init) {
+                worker.contentType = .json
+                worker.statusCode = apiError.code
+                worker.body = apiError.json
+            } else if case .json = self.format {
 				worker.contentType = .json
+                worker.statusCode = apiError.code
 				worker.body = apiError.json
 			} else {
 				worker.contentType = .txt

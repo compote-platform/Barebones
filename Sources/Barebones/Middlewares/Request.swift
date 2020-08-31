@@ -30,8 +30,8 @@ open class Request: Middleware {
 		handler: @escaping (WebWorker) throws -> Promise<Body>,
         plugins: [PluginRuntimePosition: [Plugin]] = [
             .after: [
-                JSONBodyDecorator(),
                 ErrorDecorator(),
+                JSONBodyDecorator(),
                 Responder(),
             ],
         ]
@@ -54,8 +54,8 @@ open class Request: Middleware {
 		handler: @escaping (WebWorker, GenericInput) throws -> Promise<Body>,
         plugins: [PluginRuntimePosition: [Plugin]] = [
             .after: [
-                JSONBodyDecorator(),
                 ErrorDecorator(),
+                JSONBodyDecorator(),
                 Responder(),
             ],
         ]
@@ -80,8 +80,8 @@ open class Request: Middleware {
         handler: @escaping (WebWorker, GenericInput) throws -> Promise<Body>,
         plugins: [PluginRuntimePosition: [Plugin]] = [
         .after: [
-            JSONBodyDecorator(),
             ErrorDecorator(),
+            JSONBodyDecorator(),
             Responder(),
         ],
         ]

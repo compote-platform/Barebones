@@ -8,7 +8,7 @@ public struct JSONBodyDecorator: Plugin {
 
     public var work: WebWork {
         { (worker: WebWorker) in
-            guard  case .json = worker.contentType else { return .value(()) }
+            guard case .json = worker.contentType else { return .value(()) }
 
             let options: JSONSerialization.WritingOptions
             #if DEBUG
