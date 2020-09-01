@@ -31,7 +31,10 @@ open class ErrorDecorator: Plugin {
 
 			let apiError = APIError.wrapping(error: error)
 
-            if let contentType = worker.environ.header(.ommitable("Content-Type"), map: String.init) {
+            if
+                let contentType = try? worker.environ.header(.ommitable("Content-Type"), map: String.init),
+                contentType.lowercased().contains("json")
+            {
                 worker.contentType = .json
                 worker.statusCode = apiError.code
                 worker.body = apiError.json
