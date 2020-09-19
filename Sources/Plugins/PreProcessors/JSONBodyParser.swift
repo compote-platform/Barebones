@@ -1,9 +1,12 @@
 
 import BarebonesSpecification
+import BarebonesCore
 import Foundation
 
 public struct JSONBodyParser: Plugin {
 
+    public init() {}
+    
 	public var work: WebWork {
 		{ (worker: WebWorker) in
 			let raw: Data = try worker.environ.read(key: .rawBody)

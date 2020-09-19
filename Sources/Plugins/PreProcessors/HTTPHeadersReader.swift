@@ -1,6 +1,7 @@
 
 import Journal
 import BarebonesSpecification
+import BarebonesCore
 import PromiseKit
 
 public struct HTTPHeadersReader: Plugin {

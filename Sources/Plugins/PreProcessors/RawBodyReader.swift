@@ -1,5 +1,6 @@
 
 import BarebonesSpecification
+import BarebonesCore
 import Foundation
 import PromiseKit
 import Embassy
