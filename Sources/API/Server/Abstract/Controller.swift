@@ -1,7 +1,7 @@
 
 import BarebonesCore
 
-protocol Controller {
+public protocol Controller {
 
     static var middleware: Middleware { get }
 }

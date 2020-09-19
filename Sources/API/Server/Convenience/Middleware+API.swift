@@ -3,7 +3,7 @@ import BarebonesSpecification
 import BarebonesCore
 import BarebonesPlugins
 
-extension Middleware {
+public extension Middleware {
 
     var api: Middleware {
         Middleware(timeout: self.timeout, handler: self.handler, plugins: [

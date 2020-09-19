@@ -1,7 +1,7 @@
 
 import BarebonesCore
 
-protocol Endpoint {
+public protocol Endpoint {
 
     static var request: Middleware { get }
 }

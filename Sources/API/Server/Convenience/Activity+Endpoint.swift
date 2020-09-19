@@ -4,7 +4,7 @@ import BarebonesCore
 import BarebonesServer
 import BarebonesPlugins
 
-extension Endpoint
+public extension Endpoint
 where
     Self: Activity,
     Specification.Input: BodyMaterializable
@@ -16,7 +16,7 @@ where
     }
 }
 
-extension Endpoint
+public extension Endpoint
 where
     Self: Activity,
     Specification.Input: Materializable
