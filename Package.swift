@@ -38,7 +38,6 @@ let api = Target.target(name: "BarebonesAPI", dependencies: [
     .byName(name: core.name),
     .byName(name: plugins.name),
     .byName(name: server.name),
-    .product(name: "ArgumentParser", package: "swift-argument-parser"),
 ], path: "Sources/API/Server")
 let barebones = Target.target(name: "Barebones", dependencies: [
     .byName(name: specification.name),
@@ -69,7 +68,6 @@ let package = Package(
         .package(url: "https://github.com/JohnSundell/Files", .upToNextMajor(from: "4.1.1")),
         .package(url: "https://github.com/envoy/Embassy", .upToNextMajor(from: "4.1.1")),
         .package(url: "https://github.com/envoy/Ambassador", .upToNextMajor(from: "4.0.5")),
-        .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMajor(from: "0.3.0")),
 
         .package(url: "https://github.com/compote-platform/Shell", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/compote-platform/Curl", .upToNextMajor(from: "1.0.0")),
