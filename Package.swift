@@ -12,6 +12,7 @@ let client = Target.target(name: "BarebonesAPIClient", dependencies: [
     .byName(name: "Curl"),
     .byName(name: "Shell"),
     .byName(name: "Signature"),
+    .product(name: "AsyncHTTPClient", package: "async-http-client", condition: .when(platforms: [.iOS, .macOS])),
 ], path: "Sources/API/Client")
 let core = Target.target(name: "BarebonesCore", dependencies: [
     .byName(name: specification.name),
@@ -61,6 +62,7 @@ let package = Package(
         .package(url: "https://github.com/JohnSundell/Files", .upToNextMajor(from: "4.1.1")),
         .package(url: "https://github.com/envoy/Embassy", .upToNextMajor(from: "4.1.1")),
         .package(url: "https://github.com/envoy/Ambassador", .upToNextMajor(from: "4.0.5")),
+        .package(url: "https://github.com/swift-server/async-http-client", from: "1.0.0"),
 
         .package(url: "https://github.com/compote-platform/Shell", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/compote-platform/Curl", .upToNextMajor(from: "1.0.0")),
@@ -78,10 +80,3 @@ let package = Package(
         api,
     ]
 )
-
-#if !os(Linux) || (os(iOS) || os(macOS))
-package.dependencies += [
-    .package(url: "https://github.com/swift-server/async-http-client", from: "1.0.0")
-]
-client.dependencies += [.product(name: "AsyncHTTPClient", package: "async-http-client")]
-#endif
