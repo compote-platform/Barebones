@@ -39,14 +39,6 @@ let api = Target.target(name: "BarebonesAPI", dependencies: [
     .byName(name: plugins.name),
     .byName(name: server.name),
 ], path: "Sources/API/Server")
-let barebones = Target.target(name: "Barebones", dependencies: [
-    .byName(name: specification.name),
-    .byName(name: client.name),
-    .byName(name: core.name),
-    .byName(name: plugins.name),
-    .byName(name: server.name),
-    .byName(name: api.name),
-], path: "Sources/Barebones")
 
 let package = Package(
     name: "Barebones",
@@ -58,9 +50,10 @@ let package = Package(
         .library(name: specification.name, targets: [specification.name]),
         .library(name: client.name, targets: [client.name]),
         .library(name: core.name, targets: [core.name]),
+        .library(name: plugins.name, targets: [plugins.name]),
         .library(name: server.name, targets: [server.name]),
         .library(name: api.name, targets: [api.name]),
-        .library(name: barebones.name, targets: [barebones.name]),
+        .library(name: "Barebones", targets: [specification.name, client.name, core.name, plugins.name, server.name, api.name]),
     ],
     dependencies: [
         .package(url: "https://github.com/alexaubry/HTMLString", .upToNextMajor(from: "4.0.2")),
@@ -83,7 +76,6 @@ let package = Package(
         plugins,
         server,
         api,
-        barebones,
     ]
 )
 
