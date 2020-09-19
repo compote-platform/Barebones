@@ -37,6 +37,7 @@ let api = Target.target(name: "BarebonesAPI", dependencies: [
     .byName(name: specification.name),
     .byName(name: core.name),
     .byName(name: plugins.name),
+    .byName(name: server.name),
     .product(name: "ArgumentParser", package: "swift-argument-parser"),
 ], path: "Sources/API/Server")
 let barebones = Target.target(name: "Barebones", dependencies: [
