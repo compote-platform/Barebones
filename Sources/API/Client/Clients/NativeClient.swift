@@ -15,6 +15,10 @@ public struct NativeClient: Client {
         request = try endpoint.request()
     }
 
+    public init(request: HTTPClient.Request) {
+        self.request = request
+    }
+
     public func call() -> Promise<Data> {
         Promise<Data> { resolver in
             Self.client.execute(request: request).whenComplete { result in
