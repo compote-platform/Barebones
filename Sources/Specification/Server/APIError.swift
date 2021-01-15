@@ -1,5 +1,5 @@
 
-import HTMLString
+//import HTMLString
 
 public enum APIError: Swift.Error, CustomStringConvertible {
 
@@ -13,7 +13,7 @@ public enum APIError: Swift.Error, CustomStringConvertible {
 
 	public var description: String {
 		switch self {
-			case .specific(let reason, _): return reason.addingUnicodeEntities
+			case .specific(let reason, _): return reason//.addingUnicodeEntities
 		}
 	}
 

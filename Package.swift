@@ -4,7 +4,7 @@
 import PackageDescription
 
 let specification = Target.target(name: "BarebonesSpecification", dependencies: [
-    .byName(name: "HTMLString"),
+//    .byName(name: "HTMLString"),
 ], path: "Sources/Specification")
 //let client = Target.target(name: "BarebonesAPIClient", dependencies: [
 //    .byName(name: specification.name),
@@ -64,7 +64,7 @@ let package = Package(
         ]),
     ],
     dependencies: [
-        .package(url: "https://github.com/alexaubry/HTMLString", .upToNextMajor(from: "4.0.2")),
+//        .package(url: "https://github.com/alexaubry/HTMLString", .upToNextMajor(from: "4.0.2")),
         .package(url: "https://github.com/mxcl/PromiseKit", .upToNextMajor(from: "6.13.2")),
         .package(url: "https://github.com/JohnSundell/Files", .upToNextMajor(from: "4.1.1")),
         .package(url: "https://github.com/envoy/Embassy", .upToNextMajor(from: "4.1.1")),
@@ -73,10 +73,10 @@ let package = Package(
 
 //        .package(url: "https://github.com/compote-platform/Shell", .upToNextMajor(from: "1.0.0")),
 //        .package(url: "https://github.com/compote-platform/Curl", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/compote-platform/MemoryAware", .upToNextMajor(from: "1.0.0")),
+//        .package(url: "https://github.com/compote-platform/MemoryAware", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/compote-platform/Stopwatch", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/compote-platform/Journal", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/compote-platform/Signature", .upToNextMajor(from: "1.0.0")),
+//        .package(url: "https://github.com/compote-platform/Signature", .upToNextMajor(from: "1.0.0")),
     ],
     targets: [
         specification,

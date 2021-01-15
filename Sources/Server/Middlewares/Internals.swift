@@ -23,8 +23,8 @@ open class Internals: Router {
             let file = journalFile
             let journal = try Journal.from(file: file)
 
-            let logSize = try file.read().memoryDescription
-            let cacheSize = Cache.shared.memoryDescription
+//            let logSize = try file.read().memoryDescription
+//            let cacheSize = Cache.shared.memoryDescription
             let requests = journal.log
                 .map(\.description)
                 .filter { $0.contains("finished response") || $0.contains("failed response") }
@@ -63,8 +63,8 @@ open class Internals: Router {
             return .value([
                 "response": [
                     "stats": [
-                        "logSize": logSize,
-                        "cacheSize": cacheSize,
+//                        "logSize": logSize,
+//                        "cacheSize": cacheSize,
                         "uptimes": uptimes,
                         "requests": requests,
                     ],
