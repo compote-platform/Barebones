@@ -6,14 +6,14 @@ import PackageDescription
 let specification = Target.target(name: "BarebonesSpecification", dependencies: [
     .byName(name: "HTMLString"),
 ], path: "Sources/Specification")
-let client = Target.target(name: "BarebonesAPIClient", dependencies: [
-    .byName(name: specification.name),
-    .byName(name: "PromiseKit"),
-    .byName(name: "Curl"),
-    .byName(name: "Shell"),
-    .byName(name: "Signature"),
-    .product(name: "AsyncHTTPClient", package: "async-http-client", condition: .when(platforms: [.iOS, .macOS])),
-], path: "Sources/API/Client")
+//let client = Target.target(name: "BarebonesAPIClient", dependencies: [
+//    .byName(name: specification.name),
+//    .byName(name: "PromiseKit"),
+//    .byName(name: "Curl"),
+//    .byName(name: "Shell"),
+//    .byName(name: "Signature"),
+//    .product(name: "AsyncHTTPClient", package: "async-http-client", condition: .when(platforms: [.iOS, .macOS])),
+//], path: "Sources/API/Client")
 let core = Target.target(name: "BarebonesCore", dependencies: [
     .byName(name: specification.name),
     .byName(name: "Journal"),
@@ -49,12 +49,19 @@ let package = Package(
     ],
     products: [
         .library(name: specification.name, targets: [specification.name]),
-        .library(name: client.name, targets: [client.name]),
+//        .library(name: client.name, targets: [client.name]),
         .library(name: core.name, targets: [core.name]),
         .library(name: plugins.name, targets: [plugins.name]),
         .library(name: server.name, targets: [server.name]),
         .library(name: api.name, targets: [api.name]),
-        .library(name: "Barebones", targets: [specification.name, client.name, core.name, plugins.name, server.name, api.name]),
+        .library(name: "Barebones", targets: [
+            specification.name,
+//            client.name,
+            core.name,
+            plugins.name,
+            server.name,
+            api.name,
+        ]),
     ],
     dependencies: [
         .package(url: "https://github.com/alexaubry/HTMLString", .upToNextMajor(from: "4.0.2")),
@@ -62,10 +69,10 @@ let package = Package(
         .package(url: "https://github.com/JohnSundell/Files", .upToNextMajor(from: "4.1.1")),
         .package(url: "https://github.com/envoy/Embassy", .upToNextMajor(from: "4.1.1")),
         .package(url: "https://github.com/envoy/Ambassador", .upToNextMajor(from: "4.0.5")),
-        .package(url: "https://github.com/swift-server/async-http-client", from: "1.0.0"),
+//        .package(url: "https://github.com/swift-server/async-http-client", from: "1.0.0"),
 
-        .package(url: "https://github.com/compote-platform/Shell", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/compote-platform/Curl", .upToNextMajor(from: "1.0.0")),
+//        .package(url: "https://github.com/compote-platform/Shell", .upToNextMajor(from: "1.0.0")),
+//        .package(url: "https://github.com/compote-platform/Curl", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/compote-platform/MemoryAware", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/compote-platform/Stopwatch", .upToNextMajor(from: "1.0.0")),
         .package(url: "https://github.com/compote-platform/Journal", .upToNextMajor(from: "1.0.0")),
@@ -73,7 +80,7 @@ let package = Package(
     ],
     targets: [
         specification,
-        client,
+//        client,
         core,
         plugins,
         server,
