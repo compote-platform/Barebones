@@ -11,30 +11,12 @@
         }
       },
       {
-        "package": "async-http-client",
-        "repositoryURL": "https://github.com/swift-server/async-http-client",
-        "state": {
-          "branch": null,
-          "revision": "4b4d6605aa2e4f0c2ae3c7563795ae3bec259fff",
-          "version": "1.2.1"
-        }
-      },
-      {
-        "package": "Curl",
-        "repositoryURL": "https://github.com/compote-platform/Curl",
-        "state": {
-          "branch": null,
-          "revision": "bf9e611fd79f6edce9e53611a6da5599b1ec12a5",
-          "version": "1.0.0"
-        }
-      },
-      {
         "package": "Embassy",
         "repositoryURL": "https://github.com/envoy/Embassy",
         "state": {
           "branch": null,
-          "revision": "189436100c00efbf5fb2653fe7972a9371db0a91",
-          "version": "4.1.1"
+          "revision": "1f1fe7eeebeb06037c23a2a89d6f8f1271d625be",
+          "version": "4.1.2"
         }
       },
       {
@@ -42,17 +24,8 @@
         "repositoryURL": "https://github.com/JohnSundell/Files",
         "state": {
           "branch": null,
-          "revision": "22fe84797d499ffca911ccd896b34efaf06a50b9",
-          "version": "4.1.1"
-        }
-      },
-      {
-        "package": "HTMLString",
-        "repositoryURL": "https://github.com/alexaubry/HTMLString",
-        "state": {
-          "branch": null,
-          "revision": "7fb27bf13771e239c9952507199920dfe1605ca9",
-          "version": "4.0.2"
+          "revision": "d273b5b7025d386feef79ef6bad7de762e106eaf",
+          "version": "4.2.0"
         }
       },
       {
@@ -65,39 +38,12 @@
         }
       },
       {
-        "package": "MemoryAware",
-        "repositoryURL": "https://github.com/compote-platform/MemoryAware",
-        "state": {
-          "branch": null,
-          "revision": "86bcf98d817ff0add30094c5018473872d9f7714",
-          "version": "1.0.0"
-        }
-      },
-      {
         "package": "PromiseKit",
         "repositoryURL": "https://github.com/mxcl/PromiseKit",
         "state": {
           "branch": null,
-          "revision": "f6b15b7626a4399864ffa1d5ec2ed9cf0cea5556",
-          "version": "6.13.2"
-        }
-      },
-      {
-        "package": "Shell",
-        "repositoryURL": "https://github.com/compote-platform/Shell",
-        "state": {
-          "branch": null,
-          "revision": "1fbfcd8142ac13068982c0b3c6a4c2dcad608fe8",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "Signature",
-        "repositoryURL": "https://github.com/compote-platform/Signature",
-        "state": {
-          "branch": null,
-          "revision": "b7e028cab8ba021a94dd40d0b4f8c8c4cc763a88",
-          "version": "1.0.0"
+          "revision": "aea48ea1855f5d82e2dffa6027afce3aab8f3dd7",
+          "version": "6.13.3"
         }
       },
       {
@@ -107,51 +53,6 @@
           "branch": null,
           "revision": "c9a16983b75718adb8efa1104a00f0db0bdb71ab",
           "version": "1.0.0"
-        }
-      },
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log.git",
-        "state": {
-          "branch": null,
-          "revision": "173f567a2dfec11d74588eea82cecea555bdc0bc",
-          "version": "1.4.0"
-        }
-      },
-      {
-        "package": "swift-nio",
-        "repositoryURL": "https://github.com/apple/swift-nio.git",
-        "state": {
-          "branch": null,
-          "revision": "96db8838be60fcbb993fa738e1120fb7f4b99c43",
-          "version": "2.22.1"
-        }
-      },
-      {
-        "package": "swift-nio-extras",
-        "repositoryURL": "https://github.com/apple/swift-nio-extras.git",
-        "state": {
-          "branch": null,
-          "revision": "e5b5d191a80667a14827bfeb0ae4a511f7677942",
-          "version": "1.7.0"
-        }
-      },
-      {
-        "package": "swift-nio-ssl",
-        "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
-        "state": {
-          "branch": null,
-          "revision": "ea1dfd64193bf5af4490635a4a44c4fb43b1e1ae",
-          "version": "2.9.1"
-        }
-      },
-      {
-        "package": "swift-nio-transport-services",
-        "repositoryURL": "https://github.com/apple/swift-nio-transport-services.git",
-        "state": {
-          "branch": null,
-          "revision": "bb56586c4cab9a79dce6ec4738baddb5802c5de7",
-          "version": "1.9.0"
         }
       }
     ]

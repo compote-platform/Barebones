@@ -25,7 +25,7 @@ let core = Target.target(name: "BarebonesCore", dependencies: [
 ], path: "Sources/Core")
 let plugins = Target.target(name: "BarebonesPlugins", dependencies: [
     .byName(name: core.name),
-    .byName(name: "MemoryAware"),
+    // .byName(name: "MemoryAware"),
     .byName(name: "PromiseKit"),
 ], path: "Sources/Plugins")
 let server = Target.target(name: "BarebonesServer", dependencies: [
